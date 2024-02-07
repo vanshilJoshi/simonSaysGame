@@ -9,12 +9,14 @@ let level = 0;
 let h2 = document.querySelector("h2");
 let h3 = document.querySelector("h3");
 
+const start = new Audio("audio/start.mp3")
 
 document.getElementById("btnn").addEventListener("click", function() {
     if(started == false){
         console.log("Game Started");
         started = true;
-
+        
+        start.play();
         levelUp();
     }
 });
@@ -33,6 +35,16 @@ function userFlash(btn) {
     }, 250);
 }
 
+let buttons = document.querySelectorAll(".btn")
+const audio = new Audio("audio/button.mp4")
+
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        audio.play();
+    })
+})
+
+
 function levelUp() {
     userSeq = [];
     level++;
@@ -45,7 +57,9 @@ function levelUp() {
     gameSeq.push(randColor);
     console.log(gameSeq);
     gameFlash(randBtn);
-} 
+}
+
+const end = new Audio("audio/end.mp3") 
 
 function checkAns(idx) {
     if(userSeq[idx] === gameSeq[idx]){
@@ -58,6 +72,8 @@ function checkAns(idx) {
         setTimeout(function () {
             document.querySelector("body").style.backgroundColor = "lightblue";
         }, 200);
+
+        end.play();
         reset();
     }
 }
